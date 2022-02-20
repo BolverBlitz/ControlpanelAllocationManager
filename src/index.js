@@ -14,10 +14,42 @@ Promise.all(init).then(function (values) {
     });
 
     if (!node_producs) {
-        //File dosn´t exist
+        console.log("Running first time, creating node_producs file");
+        db.controlpanel.get.GetNodes().then(function (nodes) {
+            let node_producs = {};
+            nodes.forEach(function (node) {
+                node_producs[node.id] = [];
+            });
+
+            db.controlpanel.get.GetNodesProductLinks().then(function (links) {
+                links.forEach(function (link) {
+                    node_producs[link.node_id].push(link.product_id);
+                });
+                storage.WriteFile('node_producs', node_producs).catch(function (err) {
+                    console.log(err);
+                });
+            });
+        });
     }
 
-    console.log(product_cache, node_producs);
+    checknodes();
+    //console.log(product_cache, node_producs);
 }).catch(function (err) {
     console.log(err);
 });
+
+const checknodes = function () {
+    db.controlpanel.get.GetNodes().then(function (nodes) {
+        nodes.forEach(function (node) {
+            Promise.all([db.pterodactyl.get.GetNodeResources(node.id), db.pterodactyl.get.GetNodeUsage(node.id)]).then(function (values) {
+                const [resources, usage] = values; 
+                console.log(resources, usage);
+                /*
+                if (usage[0].sum_memory > 80) {
+                    console.log(`Node ${node.name} is over 80% CPU usage`);
+                }
+                */
+            });
+        });
+    });
+}
