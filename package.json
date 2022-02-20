@@ -1,0 +1,21 @@
+{
+    "name": "controlpanelallocationsmanager",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js"
+    },
+    "keywords": [],
+    "author": "BolverBlitz",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "license": "AGPL-3.0",
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "mysql": "^2.18.1"
+    }
+}
