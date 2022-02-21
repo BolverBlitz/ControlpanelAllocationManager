@@ -3,6 +3,12 @@
 ### What does it do? 
 This program dedects if a node is over a certain limit of its allocated resources and will remove the products liked to the node from controlpanel.  
 It will check disk and memory allocations.
+
+## DISCLAIMER
+This Software directly messes with your products!   
+On FIRST startup it will sync all your products and based on THIS information it will delete / restore the products from now on.  
+IF YOU WANT TO MODIFY YOUR PRODUCTS [PLEASE FOLLOW THEGUIDE](#updating-products)!  
+
 ## Example:
 1: Node 1 has 8GB of RAM total and has 1 server with 4GB already allocated.  
 2: Client adds new server to that node with 3GB RAM.  
@@ -29,3 +35,15 @@ node index.js
 ```sh
 pm2 start index.js --name="<Name you like>"
 ```
+
+## Updating Products
+1: Make sure the software is running and verify no node is above its set limit.  
+2: Stop the software
+```sh
+pm2 stop <Name you like>
+# If you forgot the name, check with:
+pm2 ls
+```
+3: Delete the file `node_producs.json` in `./storage` folder  
+4: Make your modifications to the producs.  
+5: Start the software again
