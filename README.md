@@ -23,7 +23,8 @@ cd ./ControlpanelAllocationManager
 npm i
 mv ./.env.example ./.env
 ```
-Now fill the .env file with the database login and configure however you like it.  
+Please note, the database user needs R/W to controlpanel DB and R from pterodactyl!  
+Now fill the .env file `nano .env` with the database login and configure however you like it.  
 I recomend setting the CheckDelayInMS to at least 10 seconds, for bigger hosts even higher.  
 
 ## Running
