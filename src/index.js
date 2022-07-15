@@ -63,13 +63,11 @@ const checknodes = function () {
                     const used_memory = (usage.sum_memory / (resources.memory + (resources.memory * (resources.memory_overallocate / 100))) * 100).toFixed(0);
                     const used_disk = (usage.sum_disk / (resources.disk + (resources.disk * (resources.disk_overallocate / 100))) * 100).toFixed(0);
 
-                    
-
                     if(Number(used_memory) > Number(process.env.NodeLoadPercent) || Number(used_disk) > Number(process.env.NodeLoadPercent)) {
                         logger('info', `Node ${node.name} is over ${process.env.NodeLoadPercent}% memory usage. Current usage ${used_memory}%`);
                         if(currentavticenodelist.indexOf(node.id) !== -1) {
                             file_node_producs[node.id].forEach(function (product_id) {
-                                logger('info', `Should deleting ${product_cache[product_id]} from ${node.name}`);
+                                logger('warning', `Should deleting ${product_cache[product_id]} from ${node.name}`);
                                 jobs.push(db.controlpanel.del.ProductNodeLink(node.id, product_id));
                             });
                         }
@@ -77,7 +75,7 @@ const checknodes = function () {
                         logger('info', `Node ${node.name} is under ${process.env.NodeLoadPercent}% memory usage. Current usage ${used_memory}%`);
                         if(currentavticenodelist.indexOf(node.id) === -1) {
                             file_node_producs[node.id].forEach(function (product_id) {
-                                logger('info', `Should adding ${product_cache[product_id]} to ${node.name}`);
+                                logger('warning', `Should adding ${product_cache[product_id]} to ${node.name}`);
                                 jobs.push(db.controlpanel.add.ProductNodeLink(node.id, product_id));
                             });
                         }
