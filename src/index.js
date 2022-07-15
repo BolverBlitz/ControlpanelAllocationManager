@@ -81,11 +81,11 @@ const checknodes = function () {
                         }
                     }
                 }).catch(function (err) {
-                    console.log(err);
+                    throw Error(err);
                 });
             });
         });
     }).catch(function (err) {
-        console.log(err);
+        throw Error(err);
     });
 }
